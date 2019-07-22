@@ -2,7 +2,7 @@
 A very simple calculator
 
 This is a simple C calculator which prioritises in 3D vectors. I plan to improve the calculator bit by bit and even want to add
-matric calulations.
+matrix calulations.
 
 What the calculator has so far:
   - Cross product of 2 3D vectors
