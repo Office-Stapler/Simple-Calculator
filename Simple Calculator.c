@@ -113,7 +113,7 @@ void scale_vector(void) {
 	v2.z = v1.z * scale;
 	printf("v1 scaled by %d is (%d %d %d)\n", scale,  v2.x , v2.y, v2.z);
 }
-
+#if 0
 void projection(void) {
 	Vector v1,v2;
 	printf("Enter vector 1:\n");		
@@ -128,7 +128,7 @@ void projection(void) {
 	divide = (double) product / magnitude1;
 	printf("The projection of v1 on v2 is (%.10f...)\n",divide);
 }
-
+#endif
 Vector scanVector(void) {
 	Vector v1;
 	scanf("%d %d %d",&(v1.x), &(v1.y), &(v1.z));
