@@ -14,7 +14,7 @@ int dot_product(Vector v1, Vector v2);
 double magnitude(Vector v1);
 void add_vectors(void);
 void scale_vector(void);
-// void projection(void);
+void projection(void);
 Vector scanVector(void);
 
 int main(void) {
@@ -24,7 +24,7 @@ int main(void) {
 	printf("Enter 3 to find the dot product of two 3D vectors\n");
 	printf("Enter 4 to add two 3D vectors\n");
 	printf("Enter 5 to scale a vector by a number\n");
-	// printf("Enter 6 to find the projection of vector v1 on v2\n");
+	printf("Enter 6 to find the projection of vector v1 on v2\n");
 	printf("Enter a command: ");
 	char c = getchar();
 	int i = 0;
@@ -51,7 +51,7 @@ int main(void) {
 		} else if (c == '5') {
 			scale_vector();
 		} 
-		#if 0 
+		#if 1
 		else if (c == '6') {
 			projection();
 		} 
@@ -113,20 +113,26 @@ void scale_vector(void) {
 	v2.z = v1.z * scale;
 	printf("v1 scaled by %d is (%d %d %d)\n", scale,  v2.x , v2.y, v2.z);
 }
-#if 0
+#if 1
 void projection(void) {
 	Vector v1,v2;
 	printf("Enter vector 1:\n");		
 	v1 = scanVector();
 	printf("Enter vector 2:\n");
 	v2 = scanVector();
-	double magnitude1;
+	int magnitude1;
 	int product;
-	double divide;
-	magnitude1 = magnitude(v2);
+	magnitude1 = (int) pow(magnitude(v2),2);
 	product = dot_product(v1,v2);
-	divide = (double) product / magnitude1;
-	printf("The projection of v1 on v2 is (%.10f...)\n",divide);
+	for(int i = 2; i <= (magnitude1 / 2) || i <= (product / 2); i++) {
+		if (product % i == 0 && magnitude1 % i == 0) {
+			product /= i;
+			magnitude1 /= i;
+			i = 2;
+			continue;
+		}
+	}
+	printf("The projection of v1 on v2 is %d / %d * (%d %d %d)\n", product, magnitude1, v2.x , v2.y, v2.z);
 }
 #endif
 Vector scanVector(void) {
