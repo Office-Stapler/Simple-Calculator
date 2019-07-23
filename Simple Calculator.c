@@ -22,6 +22,7 @@ Vector addVectors(Vector v1, Vector v2);
 void scaleVector(void);
 void projection(Vector v1, Vector v2);
 Matrix matrixAddition(Matrix m1, Matrix m2);
+Matrix matrixMultiplication(Matrix m1, Matrix m2);
 Matrix scanMatrix(void);
 Vector scanVector(void);
 
@@ -34,6 +35,7 @@ int main(void) {
 	printf("Enter 5 to scale a vector by a number\n");
 	printf("Enter 6 to find the projection of vector v1 on v2\n");
 	printf("Enter 7 to add two 3x3 matricies\n");
+	printf("Enter 8 to multiply two 3x3 vectors\n");
 	printf("Enter a command: ");
 	char c = getchar();
 	int i = 0;
@@ -80,6 +82,17 @@ int main(void) {
 			m2 = scanMatrix();
 			m3 = matrixAddition(m1, m2);
 			printf("The sum of the two matricies is:\n");
+			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
+			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
+			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
+		} else if (c == '8') {
+			Matrix m1,m2,m3;
+			printf("Matrix 1\n");
+			m1 = scanMatrix();
+			printf("Matrix 2\n");
+			m2 = scanMatrix();
+			m3 = matrixMultiplication(m1,m2);
+			printf("The product of the two matricies is:\n");
 			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
 			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
 			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
@@ -159,6 +172,36 @@ Matrix matrixAddition(Matrix m1, Matrix m2) {
 	m3.v1 = addVectors(m1.v1, m2.v1);
 	m3.v2 = addVectors(m1.v2, m2.v2);
 	m3.v3 = addVectors(m1.v3, m2.v3);
+	return m3;
+}
+
+Matrix matrixMultiplication(Matrix m1, Matrix m2) {
+	Matrix m3;
+	Vector v1,v2,v3;
+	v1.x = m1.v1.x;
+	v1.y = m1.v2.x;
+	v1.z = m1.v3.x;
+
+	v2.x = m1.v1.y;
+	v2.y = m1.v2.y;
+	v2.z = m1.v3.y;
+
+	v3.x = m1.v1.z;
+	v3.y = m1.v2.z;
+	v3.z = m1.v3.z;
+
+	m3.v1.x = dotProduct(v1,m2.v1);
+	m3.v1.y = dotProduct(v2,m2.v1);
+	m3.v1.z = dotProduct(v3,m2.v1);
+
+	m3.v2.x = dotProduct(v1,m2.v2);
+	m3.v2.y = dotProduct(v2,m2.v2);
+	m3.v2.z = dotProduct(v3,m2.v2);
+
+	m3.v3.x = dotProduct(v1,m2.v3);
+	m3.v3.y = dotProduct(v2,m2.v3);
+	m3.v3.z = dotProduct(v3,m2.v3);
+	
 	return m3;
 }
 
