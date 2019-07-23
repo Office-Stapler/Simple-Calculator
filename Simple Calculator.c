@@ -21,21 +21,14 @@ double magnitude(Vector v1);
 Vector addVectors(Vector v1, Vector v2);
 void scaleVector(void);
 void projection(Vector v1, Vector v2);
+void printInstructions(void);
 Matrix matrixAddition(Matrix m1, Matrix m2);
 Matrix matrixMultiplication(Matrix m1, Matrix m2);
 Matrix scanMatrix(void);
 Vector scanVector(void);
 
 int main(void) {
-	printf("Welcome to a basic calculator\n");
-	printf("Enter 1 to cross product two 3D vectors\n");
-	printf("Enter 2 to find the magnitude of a 3D vector\n");
-	printf("Enter 3 to find the dot product of two 3D vectors\n");
-	printf("Enter 4 to add two 3D vectors\n");
-	printf("Enter 5 to scale a vector by a number\n");
-	printf("Enter 6 to find the projection of vector v1 on v2\n");
-	printf("Enter 7 to add two 3x3 matricies\n");
-	printf("Enter 8 to multiply two 3x3 vectors\n");
+	printInstructions();
 	printf("Enter a command: ");
 	char c = getchar();
 	int i = 0;
@@ -83,8 +76,8 @@ int main(void) {
 			m3 = matrixAddition(m1, m2);
 			printf("The sum of the two matricies is:\n");
 			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
-			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
-			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
+			printf("%d %d %d\n", m3.v1.y, m3.v2.y, m3.v3.y);
+			printf("%d %d %d\n", m3.v1.z, m3.v2.z, m3.v3.z);
 		} else if (c == '8') {
 			Matrix m1,m2,m3;
 			printf("Matrix 1\n");
@@ -94,8 +87,10 @@ int main(void) {
 			m3 = matrixMultiplication(m1,m2);
 			printf("The product of the two matricies is:\n");
 			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
-			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
-			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
+			printf("%d %d %d\n", m3.v1.y, m3.v2.y, m3.v3.y);
+			printf("%d %d %d\n", m3.v1.z, m3.v2.z, m3.v3.z);
+		} else if (c == 'h') {
+			printInstructions();
 		}
 		if (c != '\n') {
 			printf("Enter a command: ");
@@ -178,6 +173,8 @@ Matrix matrixAddition(Matrix m1, Matrix m2) {
 Matrix matrixMultiplication(Matrix m1, Matrix m2) {
 	Matrix m3;
 	Vector v1,v2,v3;
+	// Vector the combination of 3 integers x,y,z
+	// Matrix is the combination of 3 Vectors
 	v1.x = m1.v1.x;
 	v1.y = m1.v2.x;
 	v1.z = m1.v3.x;
@@ -204,6 +201,20 @@ Matrix matrixMultiplication(Matrix m1, Matrix m2) {
 	
 	return m3;
 }
+
+void printInstructions(void) {
+	printf("Welcome to a basic calculator\n");
+	printf("Enter 1 to cross product two 3D vectors\n");
+	printf("Enter 2 to find the magnitude of a 3D vector\n");
+	printf("Enter 3 to find the dot product of two 3D vectors\n");
+	printf("Enter 4 to add two 3D vectors\n");
+	printf("Enter 5 to scale a vector by a number\n");
+	printf("Enter 6 to find the projection of vector v1 on v2\n");
+	printf("Enter 7 to add two 3x3 matricies\n");
+	printf("Enter 8 to multiply two 3x3 vectors\n");
+	printf("Enter h for all instructions\n");
+}
+
 
 Matrix scanMatrix(void) {
 	Matrix m1;
