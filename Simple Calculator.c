@@ -24,9 +24,11 @@ void projection(Vector v1, Vector v2);
 void printInstructions(void);
 Matrix matrixAddition(Matrix m1, Matrix m2);
 Matrix matrixMultiplication(Matrix m1, Matrix m2);
+int determinant(Matrix m1);
+Matrix transposeMatrix(Matrix m1);
 Matrix scanMatrix(void);
 Vector scanVector(void);
-
+void printMatrix(Matrix m1);
 int main(void) {
 	printInstructions();
 	printf("Enter a command: ");
@@ -75,9 +77,7 @@ int main(void) {
 			m2 = scanMatrix();
 			m3 = matrixAddition(m1, m2);
 			printf("The sum of the two matricies is:\n");
-			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
-			printf("%d %d %d\n", m3.v1.y, m3.v2.y, m3.v3.y);
-			printf("%d %d %d\n", m3.v1.z, m3.v2.z, m3.v3.z);
+			printMatrix(m3);
 		} else if (c == '8') {
 			Matrix m1,m2,m3;
 			printf("Matrix 1\n");
@@ -86,9 +86,16 @@ int main(void) {
 			m2 = scanMatrix();
 			m3 = matrixMultiplication(m1,m2);
 			printf("The product of the two matricies is:\n");
-			printf("%d %d %d\n", m3.v1.x, m3.v2.x, m3.v3.x);
-			printf("%d %d %d\n", m3.v1.y, m3.v2.y, m3.v3.y);
-			printf("%d %d %d\n", m3.v1.z, m3.v2.z, m3.v3.z);
+			printMatrix(m3);
+		} else if (c == '9') {
+			printf("Matrix 1\n");
+			Matrix m1 = scanMatrix();
+			printf("The determinant of the matrix is %d\n", determinant(m1));
+		} else if (c == 'a') {
+			Matrix m1 = scanMatrix();
+			Matrix m2 = transposeMatrix(m1);
+			printf("The transposed matrix is:\n");
+			printMatrix(m2);
 		} else if (c == 'h') {
 			printInstructions();
 		}
@@ -122,7 +129,6 @@ int dotProduct(Vector v1, Vector v2) {
 	int product;
 	product = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 	return product;
-	
 }
 
 Vector addVectors(Vector v1, Vector v2) {
@@ -202,6 +208,32 @@ Matrix matrixMultiplication(Matrix m1, Matrix m2) {
 	return m3;
 }
 
+int determinant(Matrix m1) {
+	int det1,det2,det3,detfinal;
+	det1 = m1.v1.x * (m1.v2.y * m1.v3.z - m1.v2.z * m1.v3.y);
+	det2 = 0 - (m1.v2.x * (m1.v1.y * m1.v3.z - m1.v1.z * m1.v3.y));
+	det3 = m1.v3.x * (m1.v1.y * m1.v2.z - m1.v1.z * m1.v2.y);
+	detfinal = det1 + det2 + det3;
+	return detfinal;
+}
+
+Matrix transposeMatrix(Matrix m1) {
+	Matrix m2;
+	m2.v1.x = m1.v1.x;
+	m2.v1.y = m1.v2.x;
+	m2.v1.z = m1.v3.x;
+
+	m2.v2.x = m1.v1.y;
+	m2.v2.y = m1.v2.y;
+	m2.v2.z = m1.v3.y;
+
+	m2.v3.x = m1.v1.z;
+	m2.v3.y = m1.v2.z;
+	m2.v3.z = m1.v3.z;
+
+	return m2;
+}
+
 void printInstructions(void) {
 	printf("Welcome to a basic calculator\n");
 	printf("Enter 1 to cross product two 3D vectors\n");
@@ -211,7 +243,9 @@ void printInstructions(void) {
 	printf("Enter 5 to scale a vector by a number\n");
 	printf("Enter 6 to find the projection of vector v1 on v2\n");
 	printf("Enter 7 to add two 3x3 matricies\n");
-	printf("Enter 8 to multiply two 3x3 vectors\n");
+	printf("Enter 8 to multiply two 3x3 matricies\n");
+	printf("Enter 9 to find the determinant of a 3x3 vector\n");
+	printf("Enter a to transpose a matrix\n");
 	printf("Enter h for all instructions\n");
 }
 
@@ -230,4 +264,10 @@ Vector scanVector(void) {
 	Vector v1;
 	scanf("%d %d %d",&(v1.x), &(v1.y), &(v1.z));
 	return v1;
+}
+
+void printMatrix(Matrix m1) {
+	printf("(%3d %3d %3d)\n", m1.v1.x, m1.v2.x, m1.v3.x);
+	printf("(%3d %3d %3d)\n", m1.v1.y, m1.v2.y, m1.v3.y);
+	printf("(%3d %3d %3d)\n", m1.v1.z, m1.v2.z, m1.v3.z);
 }
